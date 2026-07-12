@@ -1,0 +1,1399 @@
+/* ==========================================
+   1. GOOGLE FONT
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* ==========================================
+   2. ROOT VARIABLES
+========================================== */
+
+:root{
+
+    --primary:#5B2A6D;
+    --primary-light:#73408A;
+
+    --accent:#D4AF37;
+    --accent-light:#F3D77A;
+
+    --background:#FAF9F6;
+    --surface:#FFFFFF;
+
+    --text:#2F2F2F;
+    --text-light:#6B7280;
+
+    --border:#E5E7EB;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --radius:16px;
+
+    --transition:.35s ease;
+
+}
+
+
+/* ==========================================
+   3. DARK MODE THEMES
+========================================== */
+
+
+/* ---------- PLUM ---------- */
+
+body.dark-mode[data-accent="plum"]{
+
+    --primary:#8B5CF6;
+    --primary-light:#A78BFA;
+
+    --accent:#C89B2C;
+    --accent-light:#E0BE67;
+
+    --background:#15121D;
+    --surface:#221A33;
+
+    --text:#F5F5F5;
+    --text-light:#D1D5DB;
+
+    --border:#3A3050;
+
+}
+
+
+/* ---------- EMERALD ---------- */
+
+body.dark-mode[data-accent="emerald"]{
+
+    --primary:#22C55E;
+    --primary-light:#4ADE80;
+
+    --accent:#EAB308;
+    --accent-light:#FACC15;
+
+    --background:#0B1813;
+    --surface:#12261D;
+
+    --text:#F5F5F5;
+    --text-light:#CBD5D1;
+
+    --border:#254236;
+
+}
+
+
+/* ---------- OCEAN ---------- */
+
+body.dark-mode[data-accent="ocean"]{
+
+    --primary:#60A5FA;
+    --primary-light:#93C5FD;
+
+    --accent:#FBBF24;
+    --accent-light:#FCD34D;
+
+    --background:#08121F;
+    --surface:#122238;
+
+    --text:#F5F5F5;
+    --text-light:#CBD5E1;
+
+    --border:#274060;
+
+}
+
+
+
+/* ==========================================
+   4. RESET
+========================================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.7;
+
+    transition:
+
+    background .5s ease,
+    color .5s ease;
+
+}
+
+/* ==========================================
+   ANIMATED BACKGROUND PARTICLES
+========================================== */
+
+body{
+
+    position:relative;
+
+    overflow-x:hidden;
+
+}
+
+
+.particle{
+
+    position:fixed;
+
+    color:var(--accent);
+
+    font-size:22px;
+
+    opacity:.5;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    animation:floatParticle linear infinite;
+
+}
+
+
+@keyframes floatParticle{
+
+    0%{
+
+        transform:translateY(50px) rotate(0deg);
+
+        opacity:0;
+
+    }
+
+
+    20%{
+
+        opacity:.6;
+
+    }
+
+
+    100%{
+
+        transform:translateY(-500px) rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+
+/* ==========================================
+   5. TYPOGRAPHY
+========================================== */
+
+
+h1,
+h2,
+h3,
+h4{
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    transition:.5s ease;
+
+}
+
+
+p{
+
+    color:var(--text-light);
+
+    transition:.5s ease;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+
+
+/* ==========================================
+   6. CONTAINER
+========================================== */
+
+
+.container{
+
+    width:min(90%,1200px);
+
+    margin:auto;
+
+}
+
+
+
+/* ==========================================
+   7. HEADER
+========================================== */
+
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:var(--surface);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:var(--shadow);
+
+    transition:.5s ease;
+
+}
+
+
+
+.navbar{
+
+    width:min(92%,1200px);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 0;
+
+}
+
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+
+
+.logo img{
+
+    width:55px;
+
+}
+
+
+
+.nav-links{
+
+    list-style:none;
+
+    display:flex;
+
+    gap:28px;
+
+}
+
+
+
+.nav-links a{
+
+    font-weight:500;
+
+    transition:var(--transition);
+
+}
+
+
+
+.nav-links a:hover,
+.nav-links a.active{
+
+    color:var(--accent);
+
+}
+
+
+
+
+/* ==========================================
+   8. BUTTONS
+========================================== */
+
+
+.btn{
+
+    display:inline-block;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:14px 30px;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+
+
+.btn:hover{
+
+    background:var(--primary-light);
+
+    transform:translateY(-3px);
+
+}
+
+
+
+
+/* ==========================================
+   9. HERO
+========================================== */
+
+
+.hero{
+
+    min-height:90vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:100px 20px;
+    
+  position:relative;
+
+  overflow:hidden;
+}
+
+
+
+.hero-content{
+
+    max-width:800px;
+
+}
+
+
+
+.hero h1{
+
+    font-size:clamp(2.5rem,5vw,4.5rem);
+
+    margin-bottom:20px;
+
+}
+
+
+
+.hero p{
+
+    font-size:1.2rem;
+
+    margin-bottom:35px;
+
+}
+.hero-slideshow{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:0;
+
+}
+
+
+.hero-slideshow .slide{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transition:opacity 1s ease;
+
+}
+
+
+.hero-slideshow .slide.active{
+
+    opacity:.45;
+
+}
+
+
+.hero-slideshow{
+
+    overflow:hidden;
+
+}
+.hero-overlay{
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+/* ==========================================
+   ANNOUNCEMENT BANNER
+========================================== */
+
+.announcement{
+
+    padding:40px 20px;
+
+}
+
+
+.announcement-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:25px 35px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s ease;
+
+}
+
+
+.announcement-icon{
+
+    font-size:2.5rem;
+
+}
+
+
+.announcement-box h3{
+
+    color:white;
+
+    margin-bottom:5px;
+
+}
+
+
+.announcement-box p{
+
+    color:white;
+
+    margin:0;
+
+}
+
+
+.announcement-box:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* ==========================================
+   HERO FLOATING SHAPES
+========================================== */
+
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.hero-overlay{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+
+.hero-shapes{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:1;
+
+}
+
+
+
+/* ✦ STAR */
+
+.star{
+
+    position:absolute;
+
+    top:20%;
+
+    left:15%;
+
+    font-size:90px;
+
+    color:var(--accent);
+
+    opacity:.35;
+
+    animation:starFloat 6s ease-in-out infinite;
+
+}
+
+
+
+/* ● ORB */
+
+.orb{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    opacity:.25;
+
+    right:10%;
+
+    bottom:15%;
+
+    filter:blur(5px);
+
+    animation:orbFloat 8s ease-in-out infinite;
+
+}
+
+
+
+@keyframes starFloat{
+
+    0%{
+
+        transform:translateY(0) rotate(0deg);
+
+    }
+
+    50%{
+
+        transform:translateY(-25px) rotate(20deg);
+
+    }
+
+    100%{
+
+        transform:translateY(0) rotate(0deg);
+
+    }
+
+}
+
+
+
+@keyframes orbFloat{
+
+    0%{
+
+        transform:translateY(0) scale(1);
+
+    }
+
+    50%{
+
+        transform:translateY(-35px) scale(1.1);
+
+    }
+
+    100%{
+
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+/* ==========================================
+   ANIMATED PARTICLES
+========================================== */
+
+.hero{
+
+    position:relative;
+    overflow:hidden;
+
+}
+
+
+.particle{
+
+    position:absolute;
+
+    color:var(--accent);
+
+    font-size:22px;
+
+    opacity:.5;
+
+    pointer-events:none;
+
+    animation:floatParticle linear infinite;
+
+}
+
+
+@keyframes floatParticle{
+
+    0%{
+
+        transform:translateY(50px) rotate(0deg);
+
+        opacity:0;
+
+    }
+
+
+    20%{
+
+        opacity:.6;
+
+    }
+
+
+    100%{
+
+        transform:translateY(-500px) rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+/* ==========================================
+   10. SECTIONS
+========================================== */
+
+
+section{
+
+    padding:90px 20px;
+
+}
+
+
+
+.section-tag{
+
+    display:inline-block;
+
+    color:var(--accent);
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:15px;
+
+}
+
+
+
+section h2{
+
+    font-size:2.2rem;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* ==========================================
+   11. CARDS
+========================================== */
+
+
+.discover-grid,
+.why-grid,
+.student-grid,
+.gallery-grid,
+.contact-grid,
+.academic-grid,
+.values-grid,
+.facility-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+    margin-top:40px;
+
+}
+
+
+
+.discover-card,
+.why-card,
+.student-card,
+.contact-card,
+.academic-card,
+.value-card,
+.facility-card{
+
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+    transition:
+
+    transform .3s ease,
+    background .5s ease,
+    color .5s ease;
+
+}
+
+
+
+.discover-card:hover,
+.why-card:hover,
+.student-card:hover,
+.contact-card:hover,
+.academic-card:hover,
+.value-card:hover,
+.facility-card:hover{
+
+    transform:translateY(-8px);
+
+}
+/* ==========================================
+   11.5 GALLERY CARDS
+========================================== */
+
+
+.gallery-card{
+
+    background:var(--surface);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    border:1px solid var(--border);
+
+    transition:.4s ease;
+
+}
+
+
+
+.gallery-card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+
+    transition:.5s ease;
+
+}
+
+
+
+.gallery-card h3{
+
+    padding:20px 20px 5px;
+
+}
+
+
+
+.gallery-card p{
+
+    padding:0 20px 20px;
+
+}
+
+
+
+.gallery-card:hover{
+
+    transform:translateY(-12px);
+
+}
+
+
+
+.gallery-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+
+
+
+
+/* ==========================================
+   12. FOOTER
+========================================== */
+
+
+footer{
+
+    background:var(--primary);
+
+    color:white;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    transition:.5s ease;
+
+}
+
+
+
+footer h3,
+footer p{
+
+    color:white;
+
+}
+
+
+
+.footer-content img{
+
+    width:80px;
+
+    margin:auto auto 20px;
+
+}
+
+
+
+
+
+/* ==========================================
+   13. FLOATING BUTTONS
+========================================== */
+
+
+.floating-buttons{
+
+    position:fixed;
+
+    bottom:30px;
+
+    right:30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    z-index:999;
+
+}
+
+
+
+.floating-btn{
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:1.3rem;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+
+
+.floating-btn:hover{
+
+    background:var(--primary-light);
+
+    transform:translateY(-5px) scale(1.08);
+
+}
+
+
+
+
+
+/* ==========================================
+   14. PREFERENCES PANEL
+========================================== */
+
+
+.preferences-panel{
+
+    position:fixed;
+
+    top:0;
+
+    right:-420px;
+
+    width:380px;
+
+    max-width:100%;
+
+    height:100vh;
+  
+    overflow-y:auto;
+  
+    background:var(--surface);
+
+    box-shadow:-10px 0 30px rgba(0,0,0,.15);
+
+    transition:.4s ease;
+
+    z-index:1001;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.preferences-panel.active{
+
+    right:0;
+
+}
+
+
+
+.preferences-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px;
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+
+
+.preferences-header h2{
+
+    color:white;
+
+}
+
+
+
+#close-preferences{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+}
+
+
+
+.preferences-content{
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+
+
+.preference-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+
+.preference-item label{
+
+    font-weight:600;
+
+}
+
+
+
+.preference-item select{
+
+    padding:10px;
+
+    border-radius:10px;
+
+    border:1px solid var(--border);
+
+    font-family:inherit;
+
+}
+
+
+
+.preference-item input[type="range"]{
+
+    width:140px;
+
+    accent-color:var(--primary);
+
+}
+
+
+
+#reset-preferences{
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+
+
+#reset-preferences:hover{
+
+    background:var(--primary-light);
+
+}
+
+
+
+
+
+/* ==========================================
+   15. LIGHT ACCENT COLORS
+========================================== */
+
+
+body:not(.dark-mode)[data-accent="plum"]{
+
+    --primary:#5B2A6D;
+
+    --primary-light:#73408A;
+
+    --accent:#D4AF37;
+
+    --accent-light:#F3D77A;
+
+}
+
+
+
+body:not(.dark-mode)[data-accent="emerald"]{
+
+    --primary:#0F766E;
+
+    --primary-light:#14B8A6;
+
+    --accent:#FACC15;
+
+    --accent-light:#FDE047;
+
+}
+
+
+
+body:not(.dark-mode)[data-accent="ocean"]{
+
+    --primary:#1D4ED8;
+
+    --primary-light:#3B82F6;
+
+    --accent:#FBBF24;
+
+    --accent-light:#FCD34D;
+
+}
+
+
+
+
+
+/* ==========================================
+   16. RESPONSIVE
+========================================== */
+
+
+@media (max-width:768px){
+
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:16px;
+
+    }
+
+
+
+    .hero h1{
+
+        font-size:2.5rem;
+
+    }
+
+
+
+    .floating-buttons{
+
+        bottom:20px;
+
+        right:20px;
+
+    }
+
+
+}
+/* ==========================================
+   ADMIN DASHBOARD
+========================================== */
+
+
+.admin-dashboard{
+
+    min-height:80vh;
+
+}
+
+
+.admin-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:25px;
+
+    margin-top:40px;
+
+}
+
+
+
+.admin-card{
+
+    background:var(--surface);
+
+    padding:30px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s ease;
+
+}
+
+
+
+.admin-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+.admin-card h2{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.admin-card input,
+.admin-card textarea{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:var(--background);
+
+    color:var(--text);
+
+    font-family:"Poppins",sans-serif;
+
+}
+
+
+
+.admin-card textarea{
+
+    height:150px;
+
+    resize:none;
+
+}
