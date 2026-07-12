@@ -158,24 +158,36 @@
 
 
     <input
-    type="text"
-    id="gallery-image-input"
-    placeholder="Image path (example: images/campus.jpg)">
+    type="file"
+    id="gallery-file"
+    accept="image/*">
 
 
     <input
     type="text"
-    id="gallery-caption-input"
-    placeholder="Image caption">
+    id="gallery-title"
+    placeholder="Image title">
+
+
+    <textarea
+    id="gallery-description"
+    placeholder="Image description"></textarea>
 
 
     <button
-    id="add-gallery-btn"
+    id="gallery-add-btn"
     class="btn">
 
-        Add Image
+        Add to Gallery
 
     </button>
+
+
+    <p id="gallery-status">
+
+        Ready
+
+    </p>
 
 
 </div>
