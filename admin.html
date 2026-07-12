@@ -144,65 +144,63 @@ placeholder="Email Address">
 
                     </div>
 
-                    <!-- Gallery Manager -->
+                 <!-- ======================================
+     GALLERY MANAGER
+====================================== -->
 
 <div class="admin-card">
 
     <h2>
+
         🖼 Gallery Manager
+
     </h2>
 
     <p>
-        Add and manage school images.
+
+        Add images to the public gallery.
+
     </p>
 
-
     <input
-    type="file"
-    id="gallery-file"
-    accept="image/*">
-
+    type="text"
+    id="gallery-url"
+    placeholder="Image URL">
 
     <input
     type="text"
     id="gallery-title"
-    placeholder="Image title">
-
+    placeholder="Image Title">
 
     <textarea
     id="gallery-description"
-    placeholder="Image description"></textarea>
-
+    placeholder="Image Description"></textarea>
 
     <button
     id="gallery-add-btn"
     class="btn">
 
-        Add to Gallery
+        Add To Gallery
 
     </button>
 
+    <p id="gallery-status"></p>
 
-    <p id="gallery-status">
+    <hr style="margin:20px 0;">
 
-    Ready
+    <h3>
 
-</p>
+        Gallery Items
 
-<img 
-id="gallery-preview"
-style="display:none; width:200px; border-radius:15px;"
-alt="Image preview">
+    </h3>
+
+    <div id="gallery-list">
+
+        <!-- Gallery items will appear here -->
+
+    </div>
 
 </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
 
     <!-- ==========================================
          JAVASCRIPT
