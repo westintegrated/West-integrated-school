@@ -284,3 +284,100 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+// ==========================================
+// RESTORE DEFAULT PREFERENCES
+// ==========================================
+
+const resetPreferences =
+document.getElementById("reset-preferences");
+
+
+if (resetPreferences) {
+
+    resetPreferences.addEventListener("click", () => {
+
+
+        // Remove saved preferences
+
+        localStorage.removeItem("theme");
+
+        localStorage.removeItem("accent");
+
+        localStorage.removeItem("fontSize");
+
+        localStorage.removeItem("scrollSpeed");
+
+
+        // Reset theme
+
+        document.body.classList.remove("dark-mode");
+
+
+        const themeSwitch =
+        document.getElementById("theme-toggle-switch");
+
+
+        if (themeSwitch) {
+
+            themeSwitch.checked = false;
+
+        }
+
+
+        // Reset accent color
+
+        document.documentElement
+        .setAttribute(
+            "data-theme",
+            "plum"
+        );
+
+
+        const accent =
+        document.getElementById("accent-color");
+
+
+        if (accent) {
+
+            accent.value = "plum";
+
+        }
+
+
+        // Reset font size
+
+        document.body.style.fontSize = "16px";
+
+
+        const fontSize =
+        document.getElementById("font-size");
+
+
+        if (fontSize) {
+
+            fontSize.value = 16;
+
+        }
+
+
+        // Reset scroll speed
+
+        const scrollSpeed =
+        document.getElementById("scroll-speed");
+
+
+        if (scrollSpeed) {
+
+            scrollSpeed.value = 3;
+
+        }
+
+
+        alert(
+            "Preferences restored to default!"
+        );
+
+
+    });
+
+}
