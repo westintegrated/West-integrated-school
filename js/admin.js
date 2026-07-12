@@ -110,57 +110,138 @@ if (publishBtn) {
 
 }
 // ==========================================
-// GALLERY MANAGER
+// GALLERY MANAGER DEMO
 // ==========================================
 
-const addGalleryBtn =
-document.getElementById("add-gallery-btn");
+const galleryFile =
+document.getElementById("gallery-file");
+
+const galleryPreview =
+document.getElementById("gallery-preview");
+
+const galleryAddBtn =
+document.getElementById("gallery-add-btn");
+
+const galleryStatus =
+document.getElementById("gallery-status");
 
 
-if (addGalleryBtn) {
+
+let selectedImage = "";
 
 
-    addGalleryBtn.addEventListener("click", () => {
+// IMAGE PREVIEW
+
+if (galleryFile) {
+
+    galleryFile.addEventListener("change", () => {
 
 
-        const image =
+        const file =
+        galleryFile.files[0];
+
+
+        if (file) {
+
+
+            const reader =
+            new FileReader();
+
+
+            reader.onload = function(e) {
+
+
+                selectedImage =
+                e.target.result;
+
+
+                galleryPreview.src =
+                selectedImage;
+
+
+                galleryPreview.style.display =
+                "block";
+
+
+                galleryStatus.textContent =
+                "Image selected ✓";
+
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+
+        }
+
+
+    });
+
+}
+
+
+
+// ADD IMAGE
+
+if (galleryAddBtn) {
+
+    galleryAddBtn.addEventListener("click", () => {
+
+
+        const title =
         document.getElementById(
-            "gallery-image-input"
+            "gallery-title"
         ).value;
 
 
-        const caption =
+        const description =
         document.getElementById(
-            "gallery-caption-input"
+            "gallery-description"
         ).value;
+
+
+
+        if (!selectedImage) {
+
+
+            galleryStatus.textContent =
+            "Please select an image first.";
+
+
+            return;
+
+
+        }
 
 
 
         let gallery =
         JSON.parse(
-            localStorage.getItem("gallery")
+            localStorage.getItem("demoGallery")
         ) || [];
 
 
 
         gallery.push({
 
-            image: image,
-            caption: caption
+            image: selectedImage,
+            title: title,
+            description: description
 
         });
 
 
 
         localStorage.setItem(
-            "gallery",
+            "demoGallery",
             JSON.stringify(gallery)
         );
 
 
 
-        alert("Image added to gallery!");
-
+        galleryStatus.textContent =
+        "Image added successfully ✓";
 
 
     });
