@@ -1,4 +1,3 @@
-console.log("ADMIN JS IS RUNNING");
 
 import { db, auth } from "./firebase-config.js";
 
