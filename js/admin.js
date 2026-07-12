@@ -113,15 +113,55 @@ if (publishBtn) {
 // GALLERY MANAGER
 // ==========================================
 
-const galleryBtn =
-document.getElementById("gallery-btn");
+const addGalleryBtn =
+document.getElementById("add-gallery-btn");
 
 
-if (galleryBtn) {
+if (addGalleryBtn) {
 
-    galleryBtn.addEventListener("click", () => {
 
-        alert("Gallery Manager coming soon!");
+    addGalleryBtn.addEventListener("click", () => {
+
+
+        const image =
+        document.getElementById(
+            "gallery-image-input"
+        ).value;
+
+
+        const caption =
+        document.getElementById(
+            "gallery-caption-input"
+        ).value;
+
+
+
+        let gallery =
+        JSON.parse(
+            localStorage.getItem("gallery")
+        ) || [];
+
+
+
+        gallery.push({
+
+            image: image,
+            caption: caption
+
+        });
+
+
+
+        localStorage.setItem(
+            "gallery",
+            JSON.stringify(gallery)
+        );
+
+
+
+        alert("Image added to gallery!");
+
+
 
     });
 
