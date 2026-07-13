@@ -1,378 +1,651 @@
 // ==========================================
-// PREFERENCES PANEL
+// HERO SLIDESHOW
 // ==========================================
 
-const preferencesBtn = document.getElementById("preferences-btn");
-
-const preferencesPanel = document.getElementById("preferences-panel");
-
-const closePreferences = document.getElementById("close-preferences");
-
-preferencesBtn.addEventListener("click", () => {
-
-    preferencesPanel.classList.add("active");
-
-});
-
-closePreferences.addEventListener("click", () => {
-
-    preferencesPanel.classList.remove("active");
-
-});
-
-// Close when clicking outside
-
-document.addEventListener("click", (event) => {
-
-    if (
-
-        !preferencesPanel.contains(event.target) &&
-
-        !preferencesBtn.contains(event.target)
-
-    ) {
-
-        preferencesPanel.classList.remove("active");
-
-    }
-
-});
-// ==========================================
-// DARK MODE
-// ==========================================
-
-const themeButton = document.getElementById("theme-toggle");
-const themeSwitch = document.getElementById("theme-toggle-switch");
-
-// Load saved theme
-if (localStorage.getItem("theme") === "dark") {
-
-    document.body.classList.add("dark-mode");
-
-    if (themeSwitch) {
-        themeSwitch.checked = true;
-    }
-
-}
-
-function toggleTheme() {
-
-    document.body.classList.toggle("dark-mode");
-
-    const isDark = document.body.classList.contains("dark-mode");
-
-    if (themeSwitch) {
-        themeSwitch.checked = isDark;
-    }
-
-    // Save preference
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-
-}
-
-themeButton.addEventListener("click", toggleTheme);
-
-if (themeSwitch) {
-
-    themeSwitch.addEventListener("change", toggleTheme);
-
-}
-// ==========================================
-// BACK TO TOP
-// ==========================================
-
-const backToTop = document.getElementById("back-to-top");
-
-backToTop.addEventListener("click", () => {
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-});
-// ==========================================
-// ACCENT COLOR
-// ==========================================
-
-const accentSelect = document.getElementById("accent-color");
-
-// Load saved color
-const savedAccent = localStorage.getItem("accent") || "plum";
-
-document.body.setAttribute("data-accent", savedAccent);
-accentSelect.value = savedAccent;
-
-accentSelect.addEventListener("change", () => {
-
-    const color = accentSelect.value;
-
-    document.body.setAttribute("data-accent", color);
-
-    localStorage.setItem("accent", color);
-
-});
-// ==========================================
-// FONT SIZE
-// ==========================================
-
-const fontSizeSlider = document.getElementById("font-size");
-
-// Load saved font size
-const savedFontSize = localStorage.getItem("fontSize") || "16";
-
-document.body.style.fontSize = savedFontSize + "px";
-
-fontSizeSlider.value = savedFontSize;
-
-
-// Change font size
-fontSizeSlider.addEventListener("input", () => {
-
-    const size = fontSizeSlider.value;
-
-    document.body.style.fontSize = size + "px";
-
-    localStorage.setItem("fontSize", size);
-
-});
-// ==========================================
-// SCROLL SPEED
-// ==========================================
-
-const scrollSpeedSlider = document.getElementById("scroll-speed");
-
-// Load saved scroll speed
-const savedScrollSpeed = localStorage.getItem("scrollSpeed") || "3";
-
-scrollSpeedSlider.value = savedScrollSpeed;
-
-
-// Change scroll speed
-scrollSpeedSlider.addEventListener("input", () => {
-
-    const speed = scrollSpeedSlider.value;
-
-    localStorage.setItem("scrollSpeed", speed);
-
-});
-// ==========================================
-// ANIMATED BACKGROUND PARTICLES
-// ==========================================
-
-const page = document.body;
-
-if(page){
-  
-    const shapes = ["✦", "●", "✧", "•"];
-
-    for(let i = 0; i < 30; i++){
-
-        const particle = document.createElement("span");
-
-        particle.classList.add("particle");
-
-        particle.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
-
-        particle.style.left = Math.random() * 100 + "%";
-        particle.style.top = Math.random() * 100 + "%";
-
-        particle.style.animationDelay = Math.random() * 5 + "s";
-
-        particle.style.animationDuration =
-        (5 + Math.random() * 10) + "s";
-
-        page.appendChild(particle);
-
-    }
-
-}
-// ==========================================
-// HERO IMAGE SLIDESHOW
-// ==========================================
-
-const slides = document.querySelectorAll(".slide");
-
-const images = [
-
-    "images/campus1.jpg",
-
-    "images/students.jpg",
-
-    "images/school.jpg"
-
-];
+const slides =
+document.querySelectorAll(".slide");
 
 
 let currentSlide = 0;
 
 
-// Load images
-
-slides.forEach((slide, index)=>{
-
-    slide.style.backgroundImage = `url(${images[index]})`;
-
-});
+function showSlide(index) {
 
 
-// Change slides
+    slides.forEach((slide) => {
 
-setInterval(()=>{
+        slide.classList.remove("active");
 
-    slides[currentSlide].classList.remove("active");
-
-    currentSlide = (currentSlide + 1) % slides.length;
-
-    slides[currentSlide].classList.add("active");
-
-}, 6000);
-
-const announcementTitle =
-document.getElementById("announcement-title");
-
-const announcementText =
-document.getElementById("announcement-text");
-
-if(announcementTitle && announcementText){
-
-    announcementTitle.textContent =
-        localStorage.getItem("announcementTitle")
-        || "Latest Announcement";
-
-    announcementText.textContent =
-        localStorage.getItem("announcementMessage")
-        || "No announcements yet.";
-
-}
-// ==========================================
-// LOAD ANNOUNCEMENT
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const title =
-    localStorage.getItem("announcementTitle");
+    });
 
 
-    const message =
-    localStorage.getItem("announcementMessage");
+    if (slides[index]) {
 
-
-    const announcementTitle =
-    document.getElementById("announcement-title");
-
-
-    const announcementMessage =
-    document.getElementById("announcement-message");
-
-
-    if (
-        title &&
-        message &&
-        announcementTitle &&
-        announcementMessage
-    ) {
-
-        announcementTitle.textContent = title;
-
-        announcementMessage.textContent = message;
+        slides[index].classList.add("active");
 
     }
 
-});
+
+}
+
+
+
+if (slides.length > 0) {
+
+
+    showSlide(currentSlide);
+
+
+    setInterval(() => {
+
+
+        currentSlide++;
+
+
+        if (currentSlide >= slides.length) {
+
+            currentSlide = 0;
+
+        }
+
+
+        showSlide(currentSlide);
+
+
+    }, 4000);
+
+
+}
+
+
 // ==========================================
-// RESTORE DEFAULT PREFERENCES
+// ANNOUNCEMENT DISPLAY
 // ==========================================
 
-const resetPreferences =
-document.getElementById("reset-preferences");
+const announcementTitle =
+document.getElementById(
+    "announcement-title"
+);
 
 
-if (resetPreferences) {
-
-    resetPreferences.addEventListener("click", () => {
-
-
-        // Remove saved preferences
-
-        localStorage.removeItem("theme");
-
-        localStorage.removeItem("accent");
-
-        localStorage.removeItem("fontSize");
-
-        localStorage.removeItem("scrollSpeed");
+const announcementMessage =
+document.getElementById(
+    "announcement-message"
+);
 
 
-        // Reset theme
 
-        document.body.classList.remove("dark-mode");
+const savedTitle =
+localStorage.getItem(
+    "announcementTitle"
+);
 
 
-        const themeSwitch =
-        document.getElementById("theme-toggle-switch");
+
+const savedMessage =
+localStorage.getItem(
+    "announcementMessage"
+);
+
+
+
+if (savedTitle && announcementTitle) {
+
+
+    announcementTitle.textContent =
+    savedTitle;
+
+
+}
+
+
+
+if (savedMessage && announcementMessage) {
+
+
+    announcementMessage.textContent =
+    savedMessage;
+
+
+}
+
+
+
+// ==========================================
+// DARK MODE
+// ==========================================
+
+const themeToggle =
+document.getElementById(
+    "theme-toggle"
+);
+
+
+
+const themeSwitch =
+document.getElementById(
+    "theme-toggle-switch"
+);
+
+
+
+function applyTheme(isDark) {
+
+
+    if (isDark) {
+
+
+        document.body.classList.add(
+            "dark-mode"
+        );
+
+
+    } else {
+
+
+        document.body.classList.remove(
+            "dark-mode"
+        );
+
+
+    }
+
+
+}
+
+
+
+const savedTheme =
+localStorage.getItem(
+    "darkMode"
+);
+
+
+
+applyTheme(
+    savedTheme === "true"
+);
+
+
+
+if (themeToggle) {
+
+
+    themeToggle.addEventListener(
+    "click",
+    () => {
+
+
+        const dark =
+        document.body.classList.toggle(
+            "dark-mode"
+        );
+
+
+        localStorage.setItem(
+            "darkMode",
+            dark
+        );
 
 
         if (themeSwitch) {
 
-            themeSwitch.checked = false;
-
-        }
-
-
-        // Reset accent color
-
-        document.documentElement
-        .setAttribute(
-            "data-theme",
-            "plum"
-        );
-
-
-        const accent =
-        document.getElementById("accent-color");
-
-
-        if (accent) {
-
-            accent.value = "plum";
-
-        }
-
-
-        // Reset font size
-
-        document.body.style.fontSize = "16px";
-
-
-        const fontSize =
-        document.getElementById("font-size");
-
-
-        if (fontSize) {
-
-            fontSize.value = 16;
-
-        }
-
-
-        // Reset scroll speed
-
-        const scrollSpeed =
-        document.getElementById("scroll-speed");
-
-
-        if (scrollSpeed) {
-
-            scrollSpeed.value = 3;
+            themeSwitch.checked = dark;
 
         }
 
 
     });
 
+
 }
+
+
+
+if (themeSwitch) {
+
+
+    themeSwitch.addEventListener(
+    "change",
+    () => {
+
+
+        const dark =
+        themeSwitch.checked;
+
+
+        applyTheme(dark);
+
+
+        localStorage.setItem(
+            "darkMode",
+            dark
+        );
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// ACCENT COLOR SYSTEM
+// ==========================================
+
+const accentSelect =
+document.getElementById(
+    "accent-color"
+);
+
+
+
+function applyAccent(color) {
+
+
+    document.body.dataset.accent =
+    color;
+
+
+}
+
+
+
+const savedAccent =
+localStorage.getItem(
+    "accentColor"
+);
+
+
+
+if (savedAccent) {
+
+
+    applyAccent(savedAccent);
+
+
+    if (accentSelect) {
+
+        accentSelect.value =
+        savedAccent;
+
+    }
+
+
+}
+
+
+
+if (accentSelect) {
+
+
+    accentSelect.addEventListener(
+    "change",
+    () => {
+
+
+        const color =
+        accentSelect.value;
+
+
+        applyAccent(color);
+
+
+        localStorage.setItem(
+            "accentColor",
+            color
+        );
+
+
+    });
+
+
+}
+// ==========================================
+// PREFERENCES PANEL
+// ==========================================
+
+const preferencesBtn =
+document.getElementById(
+    "preferences-btn"
+);
+
+
+const preferencesPanel =
+document.getElementById(
+    "preferences-panel"
+);
+
+
+const closePreferences =
+document.getElementById(
+    "close-preferences"
+);
+
+
+
+if (preferencesBtn) {
+
+
+    preferencesBtn.addEventListener(
+    "click",
+    () => {
+
+
+        preferencesPanel.classList.add(
+            "active"
+        );
+
+
+    });
+
+
+}
+
+
+
+if (closePreferences) {
+
+
+    closePreferences.addEventListener(
+    "click",
+    () => {
+
+
+        preferencesPanel.classList.remove(
+            "active"
+        );
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// FONT SIZE CONTROL
+// ==========================================
+
+const fontSize =
+document.getElementById(
+    "font-size"
+);
+
+
+
+function applyFontSize(size) {
+
+
+    document.documentElement.style
+    .setProperty(
+        "--font-scale",
+        size + "px"
+    );
+
+
+}
+
+
+
+const savedFont =
+localStorage.getItem(
+    "fontSize"
+);
+
+
+
+if (savedFont) {
+
+
+    applyFontSize(savedFont);
+
+
+    if (fontSize) {
+
+        fontSize.value =
+        savedFont;
+
+    }
+
+
+}
+
+
+
+if (fontSize) {
+
+
+    fontSize.addEventListener(
+    "input",
+    () => {
+
+
+        const size =
+        fontSize.value;
+
+
+        applyFontSize(size);
+
+
+        localStorage.setItem(
+            "fontSize",
+            size
+        );
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// SCROLL SPEED CONTROL
+// ==========================================
+
+const scrollSpeed =
+document.getElementById(
+    "scroll-speed"
+);
+
+
+
+const savedScroll =
+localStorage.getItem(
+    "scrollSpeed"
+);
+
+
+
+if (savedScroll && scrollSpeed) {
+
+
+    scrollSpeed.value =
+    savedScroll;
+
+
+}
+
+
+
+if (scrollSpeed) {
+
+
+    scrollSpeed.addEventListener(
+    "input",
+    () => {
+
+
+        localStorage.setItem(
+            "scrollSpeed",
+            scrollSpeed.value
+        );
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// RESET PREFERENCES
+// ==========================================
+
+const resetBtn =
+document.getElementById(
+    "reset-preferences"
+);
+
+
+
+if (resetBtn) {
+
+
+    resetBtn.addEventListener(
+    "click",
+    () => {
+
+
+        localStorage.removeItem(
+            "darkMode"
+        );
+
+
+        localStorage.removeItem(
+            "accentColor"
+        );
+
+
+        localStorage.removeItem(
+            "fontSize"
+        );
+
+
+        localStorage.removeItem(
+            "scrollSpeed"
+        );
+
+
+
+        document.body.classList.remove(
+            "dark-mode"
+        );
+
+
+        document.body.dataset.accent =
+        "plum";
+
+
+
+        if (accentSelect) {
+
+            accentSelect.value =
+            "plum";
+
+        }
+
+
+
+        if (fontSize) {
+
+            fontSize.value =
+            "16";
+
+        }
+
+
+
+        if (themeSwitch) {
+
+            themeSwitch.checked =
+            false;
+
+        }
+
+
+
+        alert(
+            "Preferences restored!"
+        );
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// BACK TO TOP BUTTON
+// ==========================================
+
+const backTop =
+document.getElementById(
+    "back-to-top"
+);
+
+
+
+if (backTop) {
+
+
+    backTop.addEventListener(
+    "click",
+    () => {
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+
+    });
+
+
+}
+
+
+
+// ==========================================
+// SCROLL BUTTON VISIBILITY
+// ==========================================
+
+window.addEventListener(
+"scroll",
+() => {
+
+
+    if (!backTop)
+    return;
+
+
+
+    if (window.scrollY > 300) {
+
+
+        backTop.style.display =
+        "flex";
+
+
+    } else {
+
+
+        backTop.style.display =
+        "none";
+
+
+    }
+
+
+});
