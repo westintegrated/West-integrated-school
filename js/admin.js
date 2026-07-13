@@ -242,7 +242,11 @@ async function loadGallery() {
     });
 
 }
-loadGallery();
+window.addEventListener("DOMContentLoaded", () => {
+
+    loadGallery();
+
+});
 // ==========================================
 // CONTENT EDITOR
 // ==========================================
