@@ -1,3 +1,4 @@
+alert("JS IS ALIVE")
 import { db, auth } from "./firebase-config.js";
 
 import {
