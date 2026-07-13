@@ -4,6 +4,9 @@ import { db, auth } from "./firebase-config.js";
 import {
     collection,
     addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
