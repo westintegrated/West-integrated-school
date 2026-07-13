@@ -178,7 +178,8 @@ if (galleryAddBtn) {
 
             galleryStatus.textContent =
             "Image added successfully! ✓";
-
+             loadGallery();
+            
             document.getElementById("gallery-url").value = "";
 
             document.getElementById("gallery-title").value = "";
@@ -197,6 +198,51 @@ if (galleryAddBtn) {
     });
 
 }
+// ==========================================
+// LOAD GALLERY
+// ==========================================
+
+async function loadGallery() {
+
+    galleryList.innerHTML = "";
+
+    const querySnapshot =
+    await getDocs(collection(db, "gallery"));
+
+    querySnapshot.forEach((galleryDoc) => {
+
+        const data = galleryDoc.data();
+
+        galleryList.innerHTML += `
+
+            <div class="gallery-item">
+
+                <h3>${data.title}</h3>
+
+                <img
+                src="${data.imageUrl}"
+                style="width:100%; border-radius:12px; margin:10px 0;">
+
+                <p>${data.description}</p>
+
+                <button
+                class="btn delete-gallery"
+                data-id="${galleryDoc.id}">
+
+                    🗑 Delete
+
+                </button>
+
+            </div>
+
+            <br>
+
+        `;
+
+    });
+
+}
+loadGallery();
 // ==========================================
 // CONTENT EDITOR
 // ==========================================
