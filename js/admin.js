@@ -1,8 +1,8 @@
-alert("STARTING");
+// ==========================================
+// FIREBASE IMPORTS
+// ==========================================
 
 import { db, auth } from "./firebase-config.js";
-
-alert("AFTER FIREBASE");
 
 import {
     collection,
@@ -13,54 +13,34 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-alert("AFTER FIRESTORE");
-
 import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-alert("AFTER AUTH");
-// ==========================================
-// GET ELEMENTS
-// ==========================================
-
-const loginBtn =
-document.getElementById("login-btn");
-
-const username =
-document.getElementById("username");
-
-const password =
-document.getElementById("password");
-
-const loginMessage =
-document.getElementById("login-message");
-
-const loginScreen =
-document.getElementById("login-screen");
-
-const adminDashboard =
-document.getElementById("admin-dashboard");
-
-const publishBtn =
-document.getElementById("publish-btn");
-
-const logoutBtn =
-document.getElementById("logout-btn");
-
-const galleryAddBtn =
-document.getElementById("gallery-add-btn");
-
-const galleryStatus =
-document.getElementById("gallery-status");
-
-const galleryList =
-document.getElementById("gallery-list");
 
 // ==========================================
-// AUTH STATE
+// ELEMENTS
+// ==========================================
+
+const loginBtn = document.getElementById("login-btn");
+
+const username = document.getElementById("username");
+
+const password = document.getElementById("password");
+
+const loginMessage = document.getElementById("login-message");
+
+const loginScreen = document.getElementById("login-screen");
+
+const adminDashboard = document.getElementById("admin-dashboard");
+
+const logoutBtn = document.getElementById("logout-btn");
+
+
+// ==========================================
+// AUTH STATE CHECK
 // ==========================================
 
 onAuthStateChanged(auth, (user) => {
@@ -68,6 +48,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
 
         loginScreen.style.display = "none";
+
         adminDashboard.style.display = "block";
 
         loadGallery();
@@ -75,80 +56,195 @@ onAuthStateChanged(auth, (user) => {
     } else {
 
         loginScreen.style.display = "block";
+
         adminDashboard.style.display = "none";
 
     }
 
 });
 
+
 // ==========================================
-// LOGIN
+// LOGIN SYSTEM
 // ==========================================
 
 if (loginBtn) {
 
     loginBtn.addEventListener("click", async () => {
 
+
+        const email = username.value.trim();
+
+        const pass = password.value.trim();
+
+
+        if (!email || !pass) {
+
+            loginMessage.textContent =
+            "Please enter email and password.";
+
+            return;
+
+        }
+
+
         try {
+
 
             await signInWithEmailAndPassword(
 
                 auth,
 
-                username.value.trim(),
+                email,
 
-                password.value.trim()
+                pass
 
             );
 
+
+            loginMessage.textContent =
+            "Login successful!";
+
+
         } catch (error) {
 
-            console.error(error);
+
+            console.error(
+                "Login Error:",
+                error
+            );
+
 
             loginMessage.textContent =
             "Incorrect email or password.";
 
         }
 
+
     });
 
 }
 
+
 // ==========================================
-// ANNOUNCEMENTS
+// LOGOUT SYSTEM
 // ==========================================
+
+if (logoutBtn) {
+
+
+    logoutBtn.addEventListener("click", async () => {
+
+
+        const confirmLogout = confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+        if (!confirmLogout) return;
+
+
+        try {
+
+
+            await signOut(auth);
+
+
+            alert(
+                "Logged out successfully!"
+            );
+
+
+            window.location.href =
+            "admin.html";
+
+
+        } catch (error) {
+
+
+            console.error(
+                "Logout Error:",
+                error
+            );
+
+
+            alert(
+                "Logout failed."
+            );
+
+
+        }
+
+
+    });
+
+
+}
+// ==========================================
+// ANNOUNCEMENT SYSTEM
+// ==========================================
+
+const publishBtn =
+document.getElementById("publish-btn");
+
 
 if (publishBtn) {
 
+
     publishBtn.addEventListener("click", () => {
+
 
         const title =
         document.getElementById(
             "announcement-title-input"
-        ).value;
+        ).value.trim();
+
 
         const message =
         document.getElementById(
             "announcement-message-input"
-        ).value;
+        ).value.trim();
+
+
 
         localStorage.setItem(
             "announcementTitle",
             title
         );
 
+
         localStorage.setItem(
             "announcementMessage",
             message
         );
 
+
         alert(
             "Announcement published!"
         );
 
+
     });
 
+
 }
+
+
+// ==========================================
+// GALLERY ELEMENTS
+// ==========================================
+
+const galleryAddBtn =
+document.getElementById("gallery-add-btn");
+
+
+const galleryStatus =
+document.getElementById("gallery-status");
+
+
+const galleryList =
+document.getElementById("gallery-list");
+
 
 // ==========================================
 // ADD GALLERY IMAGE
@@ -156,30 +252,47 @@ if (publishBtn) {
 
 if (galleryAddBtn) {
 
-    galleryAddBtn.addEventListener("click", async () => {
+
+    galleryAddBtn.addEventListener(
+    "click",
+    async () => {
+
 
         const imageUrl =
-        document.getElementById("gallery-url")
-        .value.trim();
+        document.getElementById(
+            "gallery-url"
+        ).value.trim();
+
 
         const title =
-        document.getElementById("gallery-title")
-        .value.trim();
+        document.getElementById(
+            "gallery-title"
+        ).value.trim();
+
 
         const description =
-        document.getElementById("gallery-description")
-        .value.trim();
+        document.getElementById(
+            "gallery-description"
+        ).value.trim();
+
+
 
         if (!imageUrl || !title) {
 
+
             galleryStatus.textContent =
-            "Please enter an image URL and title.";
+            "Please enter image URL and title.";
+
 
             return;
 
+
         }
 
+
+
         try {
+
 
             await addDoc(
 
@@ -200,8 +313,12 @@ if (galleryAddBtn) {
 
             );
 
+
+
             galleryStatus.textContent =
-            "Image added successfully! ✓";
+            "Image added successfully ✓";
+
+
 
             document.getElementById(
                 "gallery-url"
@@ -215,212 +332,215 @@ if (galleryAddBtn) {
                 "gallery-description"
             ).value = "";
 
+
+
             loadGallery();
+
+
 
         } catch (error) {
 
-            console.error(error);
+
+            console.error(
+                "Gallery Error:",
+                error
+            );
+
 
             galleryStatus.textContent =
             "Failed to add image.";
 
+
         }
+
 
     });
 
-    }
+
+}
+
+
 // ==========================================
 // LOAD GALLERY
 // ==========================================
 
 async function loadGallery() {
 
+
     if (!galleryList) return;
+
+
 
     galleryList.innerHTML = "";
 
+
+
     try {
 
-        const querySnapshot =
+
+        const snapshot =
         await getDocs(
             collection(db, "gallery")
         );
 
-        querySnapshot.forEach((galleryDoc) => {
+
+
+        snapshot.forEach((item) => {
+
 
             const data =
-            galleryDoc.data();
+            item.data();
+
+
 
             galleryList.innerHTML += `
 
-                <div class="gallery-item">
+            <div class="gallery-item">
 
-                    <h3>${data.title}</h3>
 
-                    <img
-                    src="${data.imageUrl}"
-                    style="width:100%;border-radius:12px;margin:10px 0;">
+                <h3>
+                    ${data.title}
+                </h3>
 
-                    <p>${data.description}</p>
 
-                    <button
-                    class="btn delete-gallery"
-                    data-id="${galleryDoc.id}">
+                <img
+                src="${data.imageUrl}"
+                style="
+                width:100%;
+                border-radius:12px;
+                margin:10px 0;
+                ">
 
-                        🗑 Delete
 
-                    </button>
+                <p>
+                    ${data.description || ""}
+                </p>
 
-                </div>
 
-                <br>
+
+                <button
+                class="btn delete-gallery"
+                data-id="${item.id}">
+
+                    🗑 Delete
+
+                </button>
+
+
+            </div>
+
+            <br>
 
             `;
 
+
         });
 
-        // ==========================================
-        // DELETE BUTTONS
-        // ==========================================
+
 
         const deleteButtons =
-        document.querySelectorAll(".delete-gallery");
+        document.querySelectorAll(
+            ".delete-gallery"
+        );
+
+
 
         deleteButtons.forEach((button) => {
 
-            button.addEventListener("click", async () => {
+
+            button.addEventListener(
+            "click",
+            async () => {
+
 
                 const confirmDelete =
                 confirm(
-                    "Delete this gallery image?"
+                    "Delete this image?"
                 );
 
-                if (!confirmDelete) return;
+
+
+                if (!confirmDelete)
+                return;
+
+
 
                 try {
+
 
                     await deleteDoc(
 
                         doc(
+
                             db,
+
                             "gallery",
+
                             button.dataset.id
+
                         )
 
                     );
 
+
+
                     loadGallery();
 
-                } catch (error) {
 
-                    console.error(error);
+
+                } catch(error) {
+
+
+                    console.error(
+                        "Delete Error:",
+                        error
+                    );
+
 
                     alert(
                         "Failed to delete image."
                     );
 
+
                 }
 
+
             });
+
 
         });
 
-    } catch (error) {
 
-        console.error(error);
+
+    } catch(error) {
+
+
+        console.error(
+            "Load Gallery Error:",
+            error
+        );
+
 
         galleryList.innerHTML =
-
         "<p>Failed to load gallery.</p>";
+
 
     }
 
+
 }
 
+
 // ==========================================
-// LOAD WHEN PAGE OPENS
+// PAGE READY
 // ==========================================
 
 window.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        loadGallery();
-
-    }
-
-);
-
-// ==========================================
-// CONTENT EDITOR
-// ==========================================
-
-const contentBtn =
-document.getElementById("content-btn");
-
-if (contentBtn) {
-
-    contentBtn.addEventListener("click", () => {
-
-        alert(
-            "Content Editor coming soon!"
-        );
-
-    });
-
-}
+"DOMContentLoaded",
+() => {
 
 
-// ==========================================
-// LOGOUT SYSTEM
-// ==========================================
+    loadGallery();
 
 
-
-const logoutBtn = document.getElementById("logout-btn");
-
-
-if(logoutBtn){
-
-    logoutBtn.addEventListener("click", () => {
-
-
-        const confirmLogout = confirm(
-            "Are you sure you want to logout?"
-        );
-
-
-        if(confirmLogout){
-
-            signOut(auth)
-
-            .then(() => {
-
-                alert("Logged out successfully!");
-
-                window.location.href = "index.html";
-
-            })
-
-
-            .catch((error) => {
-
-                console.error(
-                    "Logout error:",
-                    error
-                );
-
-                alert(
-                    "Logout failed. Please try again."
-                );
-
-            });
-
-        }
-
-
-    });
-
-}
+});
